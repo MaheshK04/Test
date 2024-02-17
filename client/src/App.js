@@ -3,7 +3,7 @@ import ChatPage from "./components/ChatPage";
 import socketIO from "socket.io-client";
 import SignIn from "./components/SignIn";
 
-const socket = socketIO.connect("https://chat-test-server.vercel.app/", {
+const socket = socketIO.connect("http://localhost:5000", {
   transports: ["websocket"],
 });
 function App() {
