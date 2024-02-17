@@ -1,14 +1,27 @@
 //imports
+// const express = require("express");
+// const app = express();
+// const cors = require("cors");
+// const http = require("http").Server(app);
+// const PORT = 5000;
+// const io = require("socket.io")(http, {
+//   cors: {
+//     origin: "*",
+//     methods:["GET","POST"]
+//   },
+// });
+
 const express = require("express");
 const app = express();
-const cors = require("cors");
-const http = require("http").Server(app);
+const http = require("http");
+const { Server } = require("socket.io");
 const PORT = 5000;
-const io = require("socket.io")(http, {
-  cors: {
-    origin: "*",
-    methods:["GET","POST"]
-  },
+const cors = require("cors");
+app.use(cors());
+
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: { origin: "*", methods: ["GET", "POST"] },
 });
 
 app.use(cors());
@@ -54,6 +67,6 @@ io.on("connection", (socket) => {
   // })
 });
 
-http.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`server running on port ${PORT}`);
 });
